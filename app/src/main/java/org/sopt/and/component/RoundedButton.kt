@@ -35,7 +35,7 @@ fun RoundedButton(
             )
     ) {
         Text(
-            modifier = Modifier.padding(vertical = 20.dp),
+            modifier = Modifier.padding(vertical = 15.dp),
             text = text,
             style = TextStyle(fontSize = 20.sp),
             color = White
