@@ -23,6 +23,7 @@ import org.sopt.and.ui.theme.White
 fun SignUpTextField(
     value: String,
     onValueChange: (String) -> Unit,
+    textPaddingValue : Int,
     placeholder: String,
     modifier: Modifier = Modifier,
     trailingIcon: @Composable () -> Unit = {},
@@ -42,7 +43,7 @@ fun SignUpTextField(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 15.dp, horizontal = 10.dp)
+                    .padding(vertical = textPaddingValue.dp, horizontal = 10.dp)
             ) {
                 Box(
                     modifier = Modifier.weight(1f)
