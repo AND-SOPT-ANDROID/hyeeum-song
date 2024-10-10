@@ -137,9 +137,9 @@ fun SignInScreen(
                     text = stringResource(R.string.wavve),
                     style = TextStyle(
                         color = White,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 30.sp
                     ),
-                    fontSize = 30.sp
                 )
             }
         )
