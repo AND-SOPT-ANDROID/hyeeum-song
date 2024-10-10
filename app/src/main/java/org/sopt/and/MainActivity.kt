@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        user = User(this)
+        user = User(applicationContext)
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

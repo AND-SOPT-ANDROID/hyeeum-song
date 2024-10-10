@@ -22,7 +22,7 @@ class SignInActivity : ComponentActivity() {
     private lateinit var signUpLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        user = User(this)
+        user = User(applicationContext)
 
         signUpLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()

@@ -1,5 +1,6 @@
 package org.sopt.and.signin
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -63,6 +64,7 @@ class SignInViewModel @Inject constructor() : ViewModel() {
     }
 
     fun isSignInValid(signUpEmail: String, signUpPassword: String): Boolean {
+        Log.e("정보","${signUpEmail},|${signUpPassword},|")
         return (_state.value.email.isNotBlank() && _state.value.password.isNotBlank() && _state.value.email == signUpEmail && _state.value.password == signUpPassword)
     }
 }
