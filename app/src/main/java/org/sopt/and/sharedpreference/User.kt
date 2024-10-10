@@ -45,6 +45,6 @@ class User(context: Context) {
         private const val PREFERENCE_NAME = "User"
         const val EMAIL: String = "user_email"
         const val PASSWORD: String = "user_password"
-        private const val SIGNIN_STATE = "login_state"
+        private const val SIGNIN_STATE = "signin_state"
     }
 }
