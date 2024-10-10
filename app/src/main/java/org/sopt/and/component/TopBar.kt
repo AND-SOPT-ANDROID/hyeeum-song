@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.sopt.and.ui.theme.ANDANDROIDTheme
 
 @Composable
 fun TopBar(
@@ -43,5 +45,13 @@ fun TopBar(
         ) {
             trailingIcon()
         }
+    }
+}
+
+@Preview
+@Composable
+fun TopBarPreview() {
+    ANDANDROIDTheme {
+        TopBar()
     }
 }

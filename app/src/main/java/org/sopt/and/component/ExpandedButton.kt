@@ -10,8 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Blue
 import org.sopt.and.ui.theme.Gray
 import org.sopt.and.ui.theme.White
@@ -37,6 +39,17 @@ fun ExpandedButton(
             text = text,
             style = TextStyle(fontSize = 20.sp),
             color = White
+        )
+    }
+}
+
+@Preview
+@Composable
+fun ExpandedButtonPreview() {
+    ANDANDROIDTheme {
+        ExpandedButton(
+            text = "",
+            onClick = {}
         )
     }
 }
