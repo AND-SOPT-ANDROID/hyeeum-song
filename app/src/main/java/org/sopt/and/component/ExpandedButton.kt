@@ -27,9 +27,9 @@ fun ExpandedButton(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onClick() }
+            .clickable { if (enabled) onClick() }
             .background(
-                color = if (enabled) Gray else Blue,
+                color = if (enabled) Blue else Gray,
             )
     ) {
         Text(

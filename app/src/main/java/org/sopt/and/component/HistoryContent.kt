@@ -35,7 +35,7 @@ fun HistoryContent(
                 fontWeight = FontWeight.Bold,
                 color = White
             ),
-            modifier = Modifier.padding(horizontal = 5.dp)
+            modifier = Modifier.padding(horizontal = 15.dp)
         )
 
         Column(
@@ -48,7 +48,7 @@ fun HistoryContent(
                 imageVector = Icons.Outlined.Info,
                 contentDescription = null,
                 tint = LightGray,
-                modifier = Modifier.size(80.dp)
+                modifier = Modifier.size(60.dp)
             )
             Text(
                 text = description,

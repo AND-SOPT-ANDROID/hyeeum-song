@@ -30,7 +30,7 @@ fun EventContent(
         modifier = modifier
             .fillMaxWidth()
             .background(Gray)
-            .padding(horizontal = 5.dp)
+            .padding(horizontal = 15.dp)
             .padding(top = 5.dp, bottom = 15.dp),
         horizontalAlignment = Alignment.Start
     ) {
