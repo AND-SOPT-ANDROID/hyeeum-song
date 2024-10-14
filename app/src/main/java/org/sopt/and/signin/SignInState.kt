@@ -1,8 +1,9 @@
 package org.sopt.and.signin
 
-data class SignInState (
+data class SignInState(
     val email: String = "",
     val password: String = "",
     var isPasswordVisible: Boolean = false,
-    val isButtonEnabled : Boolean = false
-)
+) {
+    val isButtonEnabled: Boolean = email.isNotEmpty() && password.isNotEmpty()
+}

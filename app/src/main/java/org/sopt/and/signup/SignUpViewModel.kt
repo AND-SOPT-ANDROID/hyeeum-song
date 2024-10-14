@@ -29,19 +29,11 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
         _state.value = _state.value.copy(
             email = email
         )
-        updateButtonState()
     }
 
     fun setPassword(password: String) {
         _state.value = _state.value.copy(
             password = password
-        )
-        updateButtonState()
-    }
-
-    private fun updateButtonState() {
-        _state.value = _state.value.copy(
-            isButtonEnabled = _state.value.email.isNotEmpty() && _state.value.password.isNotEmpty()
         )
     }
 
