@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">AND-ANDROID</string>
+
+    <!--signup-->
+    <string name="wavve_sign_up">Wavve 회원가입</string>
+    <string name="signup_title">이메일과 비밀번호만으로\nWavve를 즐길 수 있어요!</string>
+    <string name="signup_id_notification">! 로그인, 비밀번호 찾기, 알림에 사용되니 정확한 이메일을 입력해주세요.</string>
+    <string name="signup_password_notification">! 비밀번호는 8-20자 이내로 영문 대소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해 주세요.</string>
+    <string name="signup_id_example">wavve@example.com</string>
+    <string name="signup_password_placeholder">Wavve 비밀번호 설정</string>
+
+    <!--signin-->
+    <string name="signin">로그인</string>
+    <string name="signin_placeholder">이메일 주소 또는 아이디</string>
+    <string name="find_id">아이디 찾기</string>
+    <string name="reset_password">비밀번호 재설정</string>
+    <string name="join">회원가입</string>
+
+    <!--my-->
+    <string name="username">%1$s님</string>
+    <string name="event_first_payment">첫 결제 시 첫 달 100원!</string>
+    <string name="present_ticket">현재 보유하신 이용권이 없습니다.</string>
+    <string name="buy">구매하기</string>
+    <string name="viewing_history">전체 시청내역</string>
+    <string name="interested_program">관심 프로그램</string>
+    <string name="no_viewing_history">시청내역이 없어요.</string>
+    <string name="no_interested_program">관심 프로그램이 없어요.</string>
+
+    <!--common-->
+    <string name="signup">회원가입</string>
+    <string name="hide">hide</string>
+    <string name="show">show</string>
+    <string name="wavve">Wavve</string>
+
 </resources>
