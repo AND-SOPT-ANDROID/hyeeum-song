@@ -28,8 +28,8 @@ class SignInActivity : ComponentActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                signUpEmail = result.data?.getStringExtra(EMAIL).toString()
-                signUpPassword = result.data?.getStringExtra(PASSWORD).toString()
+                signUpEmail = result.data?.getStringExtra(EMAIL) ?: return@registerForActivityResult
+                signUpPassword = result.data?.getStringExtra(PASSWORD) ?: return@registerForActivityResult
 
                 user.saveUserInformation(signUpEmail, signUpPassword)
             }
