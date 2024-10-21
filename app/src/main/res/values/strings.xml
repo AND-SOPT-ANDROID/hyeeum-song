@@ -31,5 +31,7 @@
     <string name="hide">hide</string>
     <string name="show">show</string>
     <string name="wavve">Wavve</string>
+    <string name="editor_recommend_contents">믿고 보는 웨이브 에디터 추천작</string>
+    <string name="top_20_contents">오늘의 TOP 20</string>
 
 </resources>
