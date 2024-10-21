@@ -18,4 +18,8 @@ class HomeActivity : ComponentActivity() {
             }
         }
     }
+
+    companion object {
+        val MAX_PAGE = 4
+    }
 }
