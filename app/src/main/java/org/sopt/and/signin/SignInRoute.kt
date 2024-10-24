@@ -48,7 +48,7 @@ import org.sopt.and.ui.theme.White
 fun SignInRoute(
     navigateUp: () -> Unit,
     navigateToSignUp: () -> Unit,
-    navigateToMy: () -> Unit,
+    navigateToHome: () -> Unit,
     signUpEmail: String,
     signUpPassword: String,
     setSignInStateTrue: () -> Unit,
@@ -66,8 +66,8 @@ fun SignInRoute(
                     is SignInSideEffect.NavigateToSignUp ->
                         navigateToSignUp()
 
-                    is SignInSideEffect.NavigateToMy -> {
-                        navigateToMy()
+                    is SignInSideEffect.NavigateToHome -> {
+                        navigateToHome()
                         setSignInStateTrue()
                     }
 

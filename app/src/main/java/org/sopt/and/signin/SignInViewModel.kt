@@ -46,7 +46,7 @@ class SignInViewModel @Inject constructor() : ViewModel() {
 
             if (isSignInValid(signUpEmail, signUpPassword)) {
                 toastMessage = "로그인에 성공했습니다."
-                _sideEffect.emit(SignInSideEffect.NavigateToMy)
+                _sideEffect.emit(SignInSideEffect.NavigateToHome)
             } else {
                 toastMessage = "로그인에 실패했습니다."
             }
