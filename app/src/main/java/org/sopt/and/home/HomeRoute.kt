@@ -1,15 +1,13 @@
 package org.sopt.and.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -33,7 +31,7 @@ import kotlinx.collections.immutable.persistentListOf
 import org.sopt.and.R
 import org.sopt.and.component.HomeContent
 import org.sopt.and.component.TopBar
-import org.sopt.and.home.HomeActivity.Companion.MAX_PAGE
+import org.sopt.and.home.HomeViewModel.Companion.MAX_PAGE
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.White
@@ -41,14 +39,17 @@ import kotlin.math.absoluteValue
 
 @Composable
 fun HomeRoute(
+    paddingValues: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
-    HomeScreen()
+    HomeScreen(
+        paddingValues = paddingValues
+    )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
+    paddingValues: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
     val pagerState = rememberPagerState(pageCount = { MAX_PAGE })
@@ -57,8 +58,7 @@ fun HomeScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Black)
-            .statusBarsPadding()
-            .navigationBarsPadding(),
+            .padding(paddingValues),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(30.dp)
     ) {
@@ -131,7 +131,7 @@ fun HomeScreen(
                     R.drawable.wavve_banner2,
                     R.drawable.wavve_banner3,
                     R.drawable.wavve_top_banner,
-                    )
+                )
             )
         }
 
@@ -154,6 +154,8 @@ fun HomeScreen(
 @Preview
 fun HomeScreenpreview() {
     ANDANDROIDTheme {
-        HomeScreen()
+        HomeScreen(
+            paddingValues = PaddingValues()
+        )
     }
 }

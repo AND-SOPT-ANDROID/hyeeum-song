@@ -4,14 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.Notifications
@@ -40,18 +39,20 @@ import org.sopt.and.ui.theme.White
 
 @Composable
 fun MyRoute(
+    paddingValues: PaddingValues,
     email: String,
     modifier: Modifier = Modifier,
 ) {
     MyScreen(
+        paddingValues = paddingValues,
         email = email,
         modifier = modifier
     )
 }
 
-
 @Composable
 fun MyScreen(
+    paddingValues: PaddingValues,
     email: String,
     modifier: Modifier = Modifier
 ) {
@@ -59,8 +60,7 @@ fun MyScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Black)
-            .statusBarsPadding()
-            .navigationBarsPadding(),
+            .padding(paddingValues),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
@@ -143,6 +143,7 @@ fun MyScreen(
 fun MyScreenPreview() {
     ANDANDROIDTheme {
         MyScreen(
+            paddingValues = PaddingValues(),
             email = ""
         )
     }
