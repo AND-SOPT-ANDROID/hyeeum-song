@@ -16,6 +16,10 @@
     <string name="reset_password">비밀번호 재설정</string>
     <string name="join">회원가입</string>
 
+    <!--home-->
+    <string name="editor_recommend_contents">믿고 보는 웨이브 에디터 추천작</string>
+    <string name="top_20_contents">오늘의 TOP 20</string>
+
     <!--my-->
     <string name="username">%1$s님</string>
     <string name="event_first_payment">첫 결제 시 첫 달 100원!</string>
@@ -31,7 +35,5 @@
     <string name="hide">hide</string>
     <string name="show">show</string>
     <string name="wavve">Wavve</string>
-    <string name="editor_recommend_contents">믿고 보는 웨이브 에디터 추천작</string>
-    <string name="top_20_contents">오늘의 TOP 20</string>
 
 </resources>
