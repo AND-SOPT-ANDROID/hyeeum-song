@@ -1,13 +1,16 @@
-package org.sopt.and.my
+package org.sopt.and.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.and.sharedpreference.User
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 
-class MyActivity : ComponentActivity() {
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
     private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,11 +19,13 @@ class MyActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navigator = rememberNavController()
+            val mainNavigator = rememberMainNavigator(navigator, user)
+
             ANDANDROIDTheme {
-                MyRoute(
-                    email = user.getEmail().toString(),
-                )
+                MainScreen(user = user, navigator = mainNavigator)
             }
         }
     }
 }
+

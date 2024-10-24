@@ -44,6 +44,7 @@ import org.sopt.and.ui.theme.White
 fun SignUpRoute(
     navigateUp: () -> Unit,
     navigateToSignIn: (String, String) -> Unit,
+    saveUserInformation: (String, String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
@@ -55,9 +56,10 @@ fun SignUpRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
             .collect { sideEffect ->
                 when (sideEffect) {
-                    is SignUpSideEffect.NavigateToSignIn ->
+                    is SignUpSideEffect.NavigateToSignIn -> {
+                        saveUserInformation(state.email, state.password)
                         navigateToSignIn(state.email, state.password)
-
+                    }
 
                     is SignUpSideEffect.ShowToast -> Toast.makeText(
                         context,

@@ -42,9 +42,9 @@ class User(context: Context) {
     }
 
     companion object {
-        private const val PREFERENCE_NAME : String = "User"
+        private const val PREFERENCE_NAME: String = "User"
         const val EMAIL: String = "user_email"
         const val PASSWORD: String = "user_password"
-        private const val SIGNIN_STATE :String = "signin_state"
+        private const val SIGNIN_STATE: String = "signin_state"
     }
 }
