@@ -14,7 +14,7 @@ import org.sopt.and.signup.signUpNavGraph
 @Composable
 fun MainScreen(
     user: User,
-    navigator: MainNavigator = rememberMainNavigator(user = user)
+    navigator: MainNavigation = rememberMainNavigator(user = user)
 ) {
     Scaffold(
         content = { innerPadding ->
