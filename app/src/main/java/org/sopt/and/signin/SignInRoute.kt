@@ -25,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -39,6 +40,7 @@ import org.sopt.and.R
 import org.sopt.and.component.RoundedButton
 import org.sopt.and.component.SignUpTextField
 import org.sopt.and.component.TopBar
+import org.sopt.and.sharedpreference.User
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.LightGray
@@ -48,16 +50,17 @@ import org.sopt.and.ui.theme.White
 fun SignInRoute(
     navigateUp: () -> Unit,
     navigateToSignUp: () -> Unit,
-    navigateToMy: () -> Unit,
+    navigateToHome: () -> Unit,
     signUpEmail: String,
     signUpPassword: String,
-    setSignInStateTrue: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     val snackbarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
+    val user = User(context)
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
@@ -66,9 +69,10 @@ fun SignInRoute(
                     is SignInSideEffect.NavigateToSignUp ->
                         navigateToSignUp()
 
-                    is SignInSideEffect.NavigateToMy -> {
-                        navigateToMy()
-                        setSignInStateTrue()
+                    is SignInSideEffect.NavigateToHome -> {
+                        navigateToHome()
+                        // TODO : 로직 고려
+                        user.setSignInState(true)
                     }
 
                     is SignInSideEffect.ShowSnackBar ->

@@ -1,6 +1,5 @@
 package org.sopt.and.signup
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -35,6 +34,8 @@ import org.sopt.and.R
 import org.sopt.and.component.ExpandedButton
 import org.sopt.and.component.SignUpTextField
 import org.sopt.and.component.TopBar
+import org.sopt.and.sharedpreference.User
+import org.sopt.and.showToast
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.LightGray
@@ -50,20 +51,19 @@ fun SignUpRoute(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
+    val user = User(context)
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
             .collect { sideEffect ->
                 when (sideEffect) {
-                    is SignUpSideEffect.NavigateToSignIn ->
+                    is SignUpSideEffect.NavigateToSignIn -> {
+                        // TODO : 로직 고려
+                        user.saveUserInformation(state.email, state.password)
                         navigateToSignIn(state.email, state.password)
+                    }
 
-
-                    is SignUpSideEffect.ShowToast -> Toast.makeText(
-                        context,
-                        sideEffect.toastMessage,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    is SignUpSideEffect.ShowToast -> context.showToast(sideEffect.toastMessage)
                 }
             }
     }
