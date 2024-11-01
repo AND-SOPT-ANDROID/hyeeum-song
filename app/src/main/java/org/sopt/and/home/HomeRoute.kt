@@ -14,6 +14,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,11 +28,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.and.R
 import org.sopt.and.component.HomeContent
 import org.sopt.and.component.TopBar
-import org.sopt.and.home.HomeViewModel.Companion.MAX_PAGE
+import org.sopt.and.home.model.ContentModel
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.White
@@ -41,18 +45,27 @@ import kotlin.math.absoluteValue
 fun HomeRoute(
     paddingValues: PaddingValues,
     modifier: Modifier = Modifier,
+    homeViewModel: HomeViewModel = hiltViewModel()
 ) {
+    val state by homeViewModel.state.collectAsStateWithLifecycle()
+
     HomeScreen(
-        paddingValues = paddingValues
+        paddingValues = paddingValues,
+        topBannerContent = state.topBannerContent,
+        recommendContent = state.recommendContent,
+        top20Content = state.top20Content
     )
 }
 
 @Composable
 fun HomeScreen(
     paddingValues: PaddingValues,
+    topBannerContent: PersistentList<ContentModel>,
+    recommendContent: PersistentList<ContentModel>,
+    top20Content: PersistentList<ContentModel>,
     modifier: Modifier = Modifier,
 ) {
-    val pagerState = rememberPagerState(pageCount = { MAX_PAGE })
+    val pagerState = rememberPagerState(pageCount = { topBannerContent.size })
 
     LazyColumn(
         modifier = modifier
@@ -83,6 +96,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
             ) { page ->
+                val rankModel = topBannerContent[page]
                 Box(
                     modifier = Modifier
                         .padding(horizontal = 20.dp)
@@ -103,12 +117,12 @@ fun HomeScreen(
                                     fraction = 1f - pageOffset.coerceIn(0f, 1f)
                                 )
                             },
-                        painter = painterResource(R.drawable.wavve_top_banner),
+                        painter = painterResource(rankModel.image),
                         contentScale = ContentScale.Crop,
                         contentDescription = "top banner"
                     )
                     Text(
-                        text = "${page + 1}/${MAX_PAGE}",
+                        text = "${rankModel.rank}/${topBannerContent.size}",
                         style = TextStyle(
                             fontSize = 14.sp,
                             color = White,
@@ -126,12 +140,7 @@ fun HomeScreen(
         item {
             HomeContent(
                 title = stringResource(R.string.editor_recommend_contents),
-                items = persistentListOf(
-                    R.drawable.wavve_banner1,
-                    R.drawable.wavve_banner2,
-                    R.drawable.wavve_banner3,
-                    R.drawable.wavve_top_banner,
-                )
+                items = recommendContent
             )
         }
 
@@ -139,12 +148,7 @@ fun HomeScreen(
             HomeContent(
                 title = stringResource(R.string.top_20_contents),
                 isRanked = true,
-                items = persistentListOf(
-                    R.drawable.wavve_banner2,
-                    R.drawable.wavve_top_banner,
-                    R.drawable.wavve_banner1,
-                    R.drawable.wavve_banner3
-                )
+                items = top20Content
             )
         }
     }
@@ -155,7 +159,10 @@ fun HomeScreen(
 fun HomeScreenpreview() {
     ANDANDROIDTheme {
         HomeScreen(
-            paddingValues = PaddingValues()
+            paddingValues = PaddingValues(),
+            topBannerContent = persistentListOf(),
+            recommendContent = persistentListOf(),
+            top20Content = persistentListOf()
         )
     }
 }
