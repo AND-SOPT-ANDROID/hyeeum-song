@@ -13,13 +13,11 @@ fun NavController.navigateSignUp() {
 fun NavGraphBuilder.signUpNavGraph(
     navigateUp: () -> Unit,
     navigateToSignIn: (String, String) -> Unit,
-    saveUserInformation : (String,String) -> Unit
 ) {
     composable<SignUp> {
         SignUpRoute(
             navigateUp = navigateUp,
             navigateToSignIn = navigateToSignIn,
-            saveUserInformation = saveUserInformation
         )
     }
 }

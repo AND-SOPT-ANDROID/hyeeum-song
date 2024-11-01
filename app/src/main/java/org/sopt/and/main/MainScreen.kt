@@ -26,19 +26,12 @@ fun MainScreen(
                     navigateUp = { navigator.navigateUp() },
                     navigateToSignUp = { navigator.navigateToSignUp() },
                     navigateToHome = { navigator.navigateToHome() },
-                    setSignInStateTrue = { navigator.setSignInStateTrue() },
                     signUpEmail = user.getEmail().toString(),
                     signUpPassword = user.getPassword().toString(),
                 )
                 signUpNavGraph(
                     navigateUp = { navigator.navigateUp() },
                     navigateToSignIn = { email, password -> navigator.navigateToSignIn() },
-                    saveUserInformation = { email, password ->
-                        user.saveUserInformation(
-                            email,
-                            password
-                        )
-                    }
                 )
                 homeNavGraph(
                     paddingValues = innerPadding

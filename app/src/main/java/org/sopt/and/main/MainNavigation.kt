@@ -19,7 +19,7 @@ import org.sopt.and.signup.navigateSignUp
 
 class MainNavigation(
     val navController: NavHostController,
-    private val user: User,
+    val startDestination: MainTabRoute
 ) {
     private val currentDestination: NavDestination?
         @Composable get() = navController
@@ -56,13 +56,6 @@ class MainNavigation(
         }
     }
 
-    val startDestination: MainTabRoute
-        get() = if (user.getSignInState()) Home else SignIn
-
-    fun setSignInStateTrue() {
-        user.setSignInState(true)
-    }
-
     fun navigateUp() {
         navController.navigateUp()
     }
@@ -95,7 +88,8 @@ class MainNavigation(
 @Composable
 fun rememberMainNavigator(
     navController: NavHostController = rememberNavController(),
-    user: User,
+    user: User
 ): MainNavigation = remember(navController) {
-    MainNavigation(navController, user)
+    val startDestination = if (user.getSignInState()) Home else SignIn
+    MainNavigation(navController, startDestination)
 }

@@ -35,6 +35,7 @@ import org.sopt.and.R
 import org.sopt.and.component.ExpandedButton
 import org.sopt.and.component.SignUpTextField
 import org.sopt.and.component.TopBar
+import org.sopt.and.sharedpreference.User
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.LightGray
@@ -44,20 +45,21 @@ import org.sopt.and.ui.theme.White
 fun SignUpRoute(
     navigateUp: () -> Unit,
     navigateToSignIn: (String, String) -> Unit,
-    saveUserInformation: (String, String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
+    val user = User(context)
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
             .collect { sideEffect ->
                 when (sideEffect) {
                     is SignUpSideEffect.NavigateToSignIn -> {
-                        saveUserInformation(state.email, state.password)
+                        // TODO : 로직 고려
+                        user.saveUserInformation(state.email, state.password)
                         navigateToSignIn(state.email, state.password)
                     }
 

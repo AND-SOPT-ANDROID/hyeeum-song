@@ -14,7 +14,6 @@ fun NavGraphBuilder.signInNavGraph(
     navigateUp: () -> Unit,
     navigateToSignUp: () -> Unit,
     navigateToHome: () -> Unit,
-    setSignInStateTrue: () -> Unit,
     signUpEmail: String,
     signUpPassword: String,
 ) {
@@ -23,7 +22,6 @@ fun NavGraphBuilder.signInNavGraph(
             navigateUp = navigateUp,
             navigateToSignUp = navigateToSignUp,
             navigateToHome = navigateToHome,
-            setSignInStateTrue = setSignInStateTrue,
             signUpEmail = signUpEmail,
             signUpPassword = signUpPassword,
         )
