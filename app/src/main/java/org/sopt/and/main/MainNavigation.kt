@@ -42,17 +42,11 @@ class MainNavigation(
 
     fun navigate(tab: MainBottomTab) {
         when (tab) {
-            MainBottomTab.Home -> navController.navigateHome(
-                navOptions = navOptions
-            )
+            MainBottomTab.Home -> navController.navigateHome(navOptions = navOptions)
 
-            MainBottomTab.Search -> navController.navigateSearch(
-                navOptions = navOptions
-            )
+            MainBottomTab.Search -> navController.navigateSearch(navOptions = navOptions)
 
-            MainBottomTab.My -> navController.navigateMy(
-                navOptions = navOptions
-            )
+            MainBottomTab.My -> navController.navigateMy(navOptions = navOptions)
         }
     }
 
@@ -69,14 +63,7 @@ class MainNavigation(
     }
 
     fun navigateToHome() {
-        navController.navigateHome(navOptions = navOptions {
-            popUpTo<Home> {
-                inclusive = false
-                saveState = true
-            }
-            launchSingleTop = true
-            restoreState = true
-        })
+        navController.navigateHome(navOptions = navOptions)
     }
 
     @Composable
