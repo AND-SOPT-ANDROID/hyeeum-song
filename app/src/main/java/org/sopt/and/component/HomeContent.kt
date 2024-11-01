@@ -31,15 +31,16 @@ import androidx.compose.ui.unit.sp
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.and.R
+import org.sopt.and.home.model.ContentModel
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.White
 
 @Composable
 fun HomeContent(
-    title : String,
-    items: PersistentList<Int>,
+    title: String,
+    items: PersistentList<ContentModel>,
     modifier: Modifier = Modifier,
-    isRanked : Boolean = false
+    isRanked: Boolean = false
 ) {
     Column {
         Row(
@@ -81,11 +82,11 @@ fun HomeContent(
                     modifier = Modifier.wrapContentSize()
                 ) {
                     Image(
-                        painter = painterResource(item),
+                        painter = painterResource(item.image),
                         contentDescription = title,
                         modifier = Modifier.clip(shape = RoundedCornerShape(10.dp)),
                     )
-                    if(isRanked){
+                    if (isRanked) {
                         Text(
                             modifier = Modifier
                                 .align(Alignment.BottomStart)
@@ -112,20 +113,30 @@ fun VideoContentPreview() {
             HomeContent(
                 title = "오늘의 TOP 20",
                 items = persistentListOf(
-                    R.drawable.wavve_top_banner,
-                    R.drawable.wavve_banner1,
-                    R.drawable.wavve_banner2,
-                    R.drawable.wavve_banner3
+                    ContentModel(
+                        R.drawable.wavve_banner1
+                    ),
+                    ContentModel(
+                        R.drawable.wavve_banner2
+                    ),
+                    ContentModel(
+                        R.drawable.wavve_banner3
+                    ),
                 )
             )
             HomeContent(
                 title = "오늘의 TOP 20",
                 isRanked = true,
                 items = persistentListOf(
-                    R.drawable.wavve_top_banner,
-                    R.drawable.wavve_banner1,
-                    R.drawable.wavve_banner2,
-                    R.drawable.wavve_banner3
+                    ContentModel(
+                        R.drawable.wavve_banner1
+                    ),
+                    ContentModel(
+                        R.drawable.wavve_banner2
+                    ),
+                    ContentModel(
+                        R.drawable.wavve_banner3
+                    ),
                 )
             )
         }
