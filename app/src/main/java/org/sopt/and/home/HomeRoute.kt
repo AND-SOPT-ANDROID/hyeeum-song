@@ -119,7 +119,7 @@ fun HomeScreen(
                             },
                         painter = painterResource(rankModel.image),
                         contentScale = ContentScale.Crop,
-                        contentDescription = "top banner"
+                        contentDescription = stringResource(R.string.top_banner)
                     )
                     Text(
                         text = "${rankModel.rank}/${topBannerContent.size}",
