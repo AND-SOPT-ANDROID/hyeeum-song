@@ -38,7 +38,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.and.R
 import org.sopt.and.component.RoundedButton
-import org.sopt.and.component.SignUpTextField
+import org.sopt.and.component.SignTextField
 import org.sopt.and.component.TopBar
 import org.sopt.and.sharedpreference.User
 import org.sopt.and.ui.theme.ANDANDROIDTheme
@@ -154,7 +154,7 @@ fun SignInScreen(
             modifier = modifier.padding(horizontal = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SignUpTextField(
+            SignTextField(
                 value = email,
                 onValueChange = onEmailChange,
                 textPaddingValue = 20,
@@ -163,7 +163,7 @@ fun SignInScreen(
 
             Spacer(modifier = Modifier.height(5.dp))
 
-            SignUpTextField(
+            SignTextField(
                 value = password,
                 onValueChange = onPasswordChange,
                 textPaddingValue = 20,
