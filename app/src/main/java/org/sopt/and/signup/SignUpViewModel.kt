@@ -65,12 +65,14 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
 
         if (password.length !in MIN_PASSWORD..MAX_PASSWORD) return false
 
-        val validationCount = listOf(
-            password.any { it.isUpperCase() },
-            password.any { it.isLowerCase() },
-            password.any { it.isDigit() },
-            password.any { !it.isLetterOrDigit() }
-        )
+        val validationCount = password.run {
+            listOf(
+                any { it.isUpperCase() },
+                any { it.isLowerCase() },
+                any { it.isDigit() },
+                any { !it.isLetterOrDigit() }
+            )
+        }
 
         return validationCount.count { it } >= 3
     }
