@@ -1,7 +1,6 @@
 package org.sopt.and.signup
 
 import android.util.Patterns
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -62,19 +61,7 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
 
     fun isPasswordValid(): Boolean {
         val password = _state.value.password
-
-        if (password.length !in MIN_PASSWORD..MAX_PASSWORD) return false
-
-        val validationCount = password.run {
-            listOf(
-                any { it.isUpperCase() },
-                any { it.isLowerCase() },
-                any { it.isDigit() },
-                any { !it.isLetterOrDigit() }
-            )
-        }
-
-        return validationCount.count { it } >= 3
+        return Pattern.matches(PASSWORD_CONDITION, password)
     }
 
 
@@ -85,7 +72,9 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
     }
 
     companion object {
-        const val MIN_PASSWORD = 8
-        const val MAX_PASSWORD = 20
+        private const val MIN_PASSWORD = 8
+        private const val MAX_PASSWORD = 20
+        private const val PASSWORD_CONDITION =
+            "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{$MIN_PASSWORD,$MAX_PASSWORD}$"
     }
 }
