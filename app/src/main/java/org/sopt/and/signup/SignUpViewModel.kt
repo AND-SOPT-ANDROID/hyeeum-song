@@ -1,6 +1,7 @@
 package org.sopt.and.signup
 
 import android.util.Patterns
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.sopt.and.R
 import java.util.regex.Pattern
 import javax.inject.Inject
 
@@ -43,9 +45,9 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
                 _sideEffect.emit(SignUpSideEffect.NavigateToSignIn)
             } else {
                 val toastMessage = when {
-                    !isEmailValid() -> "이메일을 다시 확인해주세요."
-                    !isPasswordValid() -> "비밀번호는 대소문자, 숫자, 특수문자를 포함해야 합니다."
-                    else -> "유효하지 않은 입력입니다."
+                    !isEmailValid() -> R.string.check_email
+                    !isPasswordValid() -> R.string.password_condition
+                    else -> R.string.not_valid_input
                 }
                 _sideEffect.emit(SignUpSideEffect.ShowToast(toastMessage))
             }

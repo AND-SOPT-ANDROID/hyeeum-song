@@ -8,6 +8,9 @@
     <string name="signup_password_notification">! 비밀번호는 8-20자 이내로 영문 대소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해 주세요.</string>
     <string name="signup_id_example">wavve@example.com</string>
     <string name="signup_password_placeholder">Wavve 비밀번호 설정</string>
+    <string name="password_condition">비밀번호는 대소문자, 숫자, 특수문자를 포함해야 합니다.</string>
+    <string name="check_email">이메일을 다시 확인해주세요.</string>
+    <string name="not_valid_input">유효하지 않은 입력입니다.</string>
 
     <!--signin-->
     <string name="signin">로그인</string>
