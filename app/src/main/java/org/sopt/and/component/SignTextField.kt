@@ -66,7 +66,7 @@ fun SignTextField(
 
 @Preview
 @Composable
-fun SignUpTextFieldPreview() {
+fun SignTextFieldPreview() {
     ANDANDROIDTheme {
         SignTextField(
             value = "",
