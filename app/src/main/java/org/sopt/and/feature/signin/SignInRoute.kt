@@ -1,4 +1,4 @@
-package org.sopt.and.signin
+package org.sopt.and.feature.signin
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -40,7 +40,6 @@ import org.sopt.and.R
 import org.sopt.and.component.RoundedButton
 import org.sopt.and.component.AuthTextField
 import org.sopt.and.component.TopBar
-import org.sopt.and.sharedpreference.User
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.LightGray
@@ -51,16 +50,12 @@ fun SignInRoute(
     navigateUp: () -> Unit,
     navigateToSignUp: () -> Unit,
     navigateToHome: () -> Unit,
-    signUpEmail: String,
-    signUpPassword: String,
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     val snackbarHostState = remember { SnackbarHostState() }
-    val context = LocalContext.current
-    val user = User(context)
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
@@ -71,8 +66,6 @@ fun SignInRoute(
 
                     is SignInSideEffect.NavigateToHome -> {
                         navigateToHome()
-                        // TODO : 로직 고려
-                        user.setSignInState(true)
                     }
 
                     is SignInSideEffect.ShowSnackBar ->
@@ -84,16 +77,14 @@ fun SignInRoute(
     SignInScreen(
         navigateUp = navigateUp,
         navigateToSignUp = navigateToSignUp,
-        signUpEmail = signUpEmail,
-        signUpPassword = signUpPassword,
-        email = state.email,
+        username = state.username,
         password = state.password,
-        onEmailChange = viewModel::setEmail,
+        onUsernameChange = viewModel::setUsername,
         onPasswordChange = viewModel::setPassword,
         isPasswordVisible = state.isPasswordVisible,
         reversePasswordVisibility = viewModel::reversePasswordVisibility,
         isButtonEnabled = state.isButtonEnabled,
-        isSignInValid = viewModel::showSnackBar,
+        isSignInValid = viewModel::isSignInValid,
         snackbarHostState = snackbarHostState,
         modifier = modifier
     )
@@ -103,16 +94,14 @@ fun SignInRoute(
 fun SignInScreen(
     navigateUp: () -> Unit,
     navigateToSignUp: () -> Unit,
-    signUpEmail: String,
-    signUpPassword: String,
-    email: String,
+    username: String,
     password: String,
-    onEmailChange: (String) -> Unit,
+    onUsernameChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     isPasswordVisible: Boolean,
     reversePasswordVisibility: () -> Unit,
     isButtonEnabled: Boolean,
-    isSignInValid: (String, String) -> Unit,
+    isSignInValid: () -> Unit,
     snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
@@ -155,10 +144,10 @@ fun SignInScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AuthTextField(
-                value = email,
-                onValueChange = onEmailChange,
+                value = username,
+                onValueChange = onUsernameChange,
                 textPaddingValue = 20,
-                placeholder = stringResource(R.string.signin_placeholder)
+                placeholder = stringResource(R.string.signin_username_placeholder)
             )
 
             Spacer(modifier = Modifier.height(5.dp))
@@ -167,7 +156,7 @@ fun SignInScreen(
                 value = password,
                 onValueChange = onPasswordChange,
                 textPaddingValue = 20,
-                placeholder = stringResource(R.string.signup_password_placeholder),
+                placeholder = stringResource(R.string.signin_password_placeholder),
                 trailingIcon = {
                     Text(
                         color = White,
@@ -186,10 +175,7 @@ fun SignInScreen(
             RoundedButton(
                 text = stringResource(R.string.signin),
                 onClick = {
-                    isSignInValid(
-                        signUpEmail,
-                        signUpPassword
-                    )
+                    isSignInValid()
                 },
                 enabled = isButtonEnabled
             )
@@ -246,16 +232,14 @@ fun SignInScreenPreview() {
         SignInScreen(
             navigateUp = {},
             navigateToSignUp = {},
-            signUpEmail = "",
-            signUpPassword = "",
-            email = "",
+            username = "",
             password = "",
-            onEmailChange = {},
+            onUsernameChange = {},
             onPasswordChange = {},
             isPasswordVisible = false,
             reversePasswordVisibility = {},
             isButtonEnabled = false,
-            isSignInValid = { _, _ -> },
+            isSignInValid = { },
             snackbarHostState = SnackbarHostState()
         )
     }
