@@ -1,4 +1,4 @@
-package org.sopt.and.home
+package org.sopt.and.feature.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,7 +35,7 @@ import kotlinx.collections.immutable.persistentListOf
 import org.sopt.and.R
 import org.sopt.and.component.HomeContent
 import org.sopt.and.component.TopBar
-import org.sopt.and.home.model.ContentModel
+import org.sopt.and.feature.home.model.ContentModel
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.White

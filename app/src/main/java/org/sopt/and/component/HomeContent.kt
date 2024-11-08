@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.and.R
-import org.sopt.and.home.model.ContentModel
+import org.sopt.and.feature.home.model.ContentModel
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.White
 

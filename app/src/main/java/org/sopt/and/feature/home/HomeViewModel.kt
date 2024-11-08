@@ -1,4 +1,4 @@
-package org.sopt.and.home
+package org.sopt.and.feature.home
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.sopt.and.R
-import org.sopt.and.home.model.ContentModel
+import org.sopt.and.feature.home.model.ContentModel
 import javax.inject.Inject
 
 @HiltViewModel

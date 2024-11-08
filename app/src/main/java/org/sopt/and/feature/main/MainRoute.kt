@@ -1,4 +1,4 @@
-package org.sopt.and.main
+package org.sopt.and.feature.main
 
 interface MainRoute
 

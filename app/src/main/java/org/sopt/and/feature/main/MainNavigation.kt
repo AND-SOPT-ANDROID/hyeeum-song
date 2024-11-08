@@ -1,4 +1,4 @@
-package org.sopt.and.main
+package org.sopt.and.feature.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -8,14 +8,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import org.sopt.and.home.Home
-import org.sopt.and.home.navigateHome
-import org.sopt.and.my.navigateMy
-import org.sopt.and.search.navigateSearch
+import org.sopt.and.feature.home.Home
+import org.sopt.and.feature.home.navigateHome
+import org.sopt.and.feature.my.navigateMy
+import org.sopt.and.feature.search.navigateSearch
+import org.sopt.and.feature.signin.SignIn
+import org.sopt.and.feature.signin.navigateSignIn
+import org.sopt.and.feature.signup.navigateSignUp
 import org.sopt.and.sharedpreference.User
-import org.sopt.and.signin.SignIn
-import org.sopt.and.signin.navigateSignIn
-import org.sopt.and.signup.navigateSignUp
 
 class MainNavigation(
     val navController: NavHostController,

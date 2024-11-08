@@ -1,4 +1,4 @@
-package org.sopt.and.home
+package org.sopt.and.feature.home
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
-import org.sopt.and.main.MainTabRoute
+import org.sopt.and.feature.main.MainTabRoute
 
 fun NavController.navigateHome(
     navOptions: NavOptions

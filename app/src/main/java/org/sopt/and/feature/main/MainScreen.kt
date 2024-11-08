@@ -1,15 +1,15 @@
-package org.sopt.and.main
+package org.sopt.and.feature.main
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import kotlinx.collections.immutable.toPersistentList
-import org.sopt.and.home.homeNavGraph
-import org.sopt.and.my.myNavGraph
-import org.sopt.and.search.searchNavGraph
+import org.sopt.and.feature.home.homeNavGraph
+import org.sopt.and.feature.my.myNavGraph
+import org.sopt.and.feature.search.searchNavGraph
+import org.sopt.and.feature.signin.signInNavGraph
+import org.sopt.and.feature.signup.signUpNavGraph
 import org.sopt.and.sharedpreference.User
-import org.sopt.and.signin.signInNavGraph
-import org.sopt.and.signup.signUpNavGraph
 
 @Composable
 fun MainScreen(
@@ -26,12 +26,10 @@ fun MainScreen(
                     navigateUp = { navigator.navigateUp() },
                     navigateToSignUp = { navigator.navigateToSignUp() },
                     navigateToHome = { navigator.navigateToHome() },
-                    signUpEmail = user.getEmail().toString(),
-                    signUpPassword = user.getPassword().toString(),
                 )
                 signUpNavGraph(
                     navigateUp = { navigator.navigateUp() },
-                    navigateToSignIn = { email, password -> navigator.navigateToSignIn() },
+                    navigateToSignIn = { username, password -> navigator.navigateToSignIn() },
                 )
                 homeNavGraph(
                     paddingValues = innerPadding
@@ -41,7 +39,6 @@ fun MainScreen(
                 )
                 myNavGraph(
                     paddingValues = innerPadding,
-                    user = user
                 )
             }
         },

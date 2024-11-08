@@ -1,4 +1,4 @@
-package org.sopt.and.signup
+package org.sopt.and.feature.signup
 
 sealed class SignUpSideEffect {
     data object NavigateToSignIn : SignUpSideEffect()

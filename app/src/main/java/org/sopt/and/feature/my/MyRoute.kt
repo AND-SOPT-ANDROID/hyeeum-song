@@ -1,4 +1,4 @@
-package org.sopt.and.my
+package org.sopt.and.feature.my
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,6 +19,9 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.traceEventEnd
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,6 +30,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.sopt.and.R
 import org.sopt.and.component.EventContent
 import org.sopt.and.component.HistoryContent
@@ -40,12 +45,18 @@ import org.sopt.and.ui.theme.White
 @Composable
 fun MyRoute(
     paddingValues: PaddingValues,
-    email: String,
     modifier: Modifier = Modifier,
+    viewModel: MyViewModel = hiltViewModel()
 ) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(true) {
+        viewModel.getUserHobby()
+    }
+
     MyScreen(
         paddingValues = paddingValues,
-        email = email,
+        hobby = state.hobby,
         modifier = modifier
     )
 }
@@ -53,8 +64,8 @@ fun MyRoute(
 @Composable
 fun MyScreen(
     paddingValues: PaddingValues,
-    email: String,
-    modifier: Modifier = Modifier
+    hobby: String,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -78,7 +89,7 @@ fun MyScreen(
             )
 
             Text(
-                text = stringResource(R.string.username, email),
+                text = hobby,
                 style = TextStyle(
                     fontSize = 20.sp,
                     color = White
@@ -144,7 +155,7 @@ fun MyScreenPreview() {
     ANDANDROIDTheme {
         MyScreen(
             paddingValues = PaddingValues(),
-            email = ""
+            hobby = ""
         )
     }
 }

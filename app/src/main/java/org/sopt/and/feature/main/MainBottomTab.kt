@@ -1,4 +1,4 @@
-package org.sopt.and.main
+package org.sopt.and.feature.main
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
@@ -15,17 +15,17 @@ enum class MainBottomTab(
     Home(
         icon = Icons.Outlined.Home,
         title = "홈",
-        route = org.sopt.and.home.Home,
+        route = org.sopt.and.feature.home.Home,
     ),
     Search(
         icon = Icons.Outlined.Search,
         title = "검색",
-        route = org.sopt.and.search.Search,
+        route = org.sopt.and.feature.search.Search,
     ),
     My(
         icon = Icons.Outlined.AccountCircle,
         title = "MY",
-        route = org.sopt.and.my.My,
+        route = org.sopt.and.feature.my.My,
     );
 
     companion object {

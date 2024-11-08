@@ -1,4 +1,4 @@
-package org.sopt.and.home.model
+package org.sopt.and.feature.home.model
 
 import androidx.annotation.DrawableRes
 
