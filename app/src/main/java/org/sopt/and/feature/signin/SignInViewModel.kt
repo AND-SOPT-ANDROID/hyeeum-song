@@ -1,4 +1,4 @@
-package org.sopt.and.signin
+package org.sopt.and.feature.signin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,10 +10,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.sopt.and.domain.entity.request.RequestSignInEntity
+import org.sopt.and.domain.repository.WavveRepository
+import org.sopt.and.sharedpreference.User
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor() : ViewModel() {
+class SignInViewModel @Inject constructor(
+    private val user:User,
+    private val wavveRepository: WavveRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(SignInState())
     val state: StateFlow<SignInState>
         get() = _state.asStateFlow()
@@ -22,9 +28,9 @@ class SignInViewModel @Inject constructor() : ViewModel() {
     val sideEffect: SharedFlow<SignInSideEffect>
         get() = _sideEffect.asSharedFlow()
 
-    fun setEmail(email: String) {
+    fun setUsername(username: String) {
         _state.value = _state.value.copy(
-            email = email
+            username = username
         )
     }
 
@@ -40,21 +46,23 @@ class SignInViewModel @Inject constructor() : ViewModel() {
         )
     }
 
-    fun showSnackBar(signUpEmail: String, signUpPassword: String) {
+    fun isSignInValid() {
         viewModelScope.launch {
-            val toastMessage: String
-
-            if (isSignInValid(signUpEmail, signUpPassword)) {
+            var toastMessage: String = ""
+            wavveRepository.getUserId(
+                RequestSignInEntity(
+                    username = _state.value.username,
+                    password = _state.value.password
+                )
+            ).onSuccess { SignInEntity ->
                 toastMessage = "로그인에 성공했습니다."
+                user.saveUserToken(SignInEntity.token)
+                user.setSignInState(true)
                 _sideEffect.emit(SignInSideEffect.NavigateToHome)
-            } else {
+            }.onFailure {
                 toastMessage = "로그인에 실패했습니다."
             }
             _sideEffect.emit(SignInSideEffect.ShowSnackBar(toastMessage))
         }
-    }
-
-    fun isSignInValid(signUpEmail: String, signUpPassword: String): Boolean {
-        return (_state.value.email.isNotBlank() && _state.value.password.isNotBlank() && _state.value.email == signUpEmail && _state.value.password == signUpPassword)
     }
 }
