@@ -2,30 +2,31 @@ package org.sopt.and.sharedpreference
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class User(context: Context) {
+@Singleton
+class User @Inject constructor(
+    @ApplicationContext private val context: Context
+) {
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
-    fun saveUserInformation(email: String, password: String) {
+    fun saveUserToken(token: String) {
         with(sharedPreferences.edit()) {
-            putString(EMAIL, email)
-            putString(PASSWORD, password)
+            putString(TOKEN, token)
             apply()
         }
     }
 
-    fun getEmail(): String? {
-        return sharedPreferences.getString(EMAIL, null)
+    fun getUserToken(): String? {
+        return sharedPreferences.getString(TOKEN, null)
     }
 
-    fun getPassword(): String? {
-        return sharedPreferences.getString(PASSWORD, null)
-    }
-
-    fun clearUserInformation() {
+    fun clearSignInState() {
         with(sharedPreferences.edit()) {
-            clear()
+            putBoolean(SIGNIN_STATE, false)
             apply()
         }
     }
@@ -42,9 +43,8 @@ class User(context: Context) {
     }
 
     companion object {
-        private const val PREFERENCE_NAME: String = "User"
-        const val EMAIL: String = "user_email"
-        const val PASSWORD: String = "user_password"
+        private const val PREFERENCE_NAME: String = "user"
+        const val TOKEN: String = "token"
         private const val SIGNIN_STATE: String = "signin_state"
     }
 }
