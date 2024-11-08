@@ -1,4 +1,4 @@
-package org.sopt.and.signup
+package org.sopt.and.feature.signup
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,7 +34,6 @@ import org.sopt.and.R
 import org.sopt.and.component.ExpandedButton
 import org.sopt.and.component.AuthTextField
 import org.sopt.and.component.TopBar
-import org.sopt.and.sharedpreference.User
 import org.sopt.and.showToast
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
@@ -51,7 +50,6 @@ fun SignUpRoute(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
-    val user = User(context)
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
@@ -59,8 +57,7 @@ fun SignUpRoute(
                 when (sideEffect) {
                     is SignUpSideEffect.NavigateToSignIn -> {
                         // TODO : 로직 고려
-                        user.saveUserInformation(state.email, state.password)
-                        navigateToSignIn(state.email, state.password)
+                        navigateToSignIn(state.username, state.password)
                     }
 
                     is SignUpSideEffect.ShowToast -> context.showToast(sideEffect.toastMessage)
@@ -70,11 +67,13 @@ fun SignUpRoute(
 
     SignUpScreen(
         navigateUp = navigateUp,
-        email = state.email,
+        username = state.username,
         password = state.password,
-        onEmailChange = viewModel::setEmail,
+        hobby = state.hobby,
+        onUsernameChange = viewModel::setUsername,
         onPasswordChange = viewModel::setPassword,
         isPasswordVisible = state.isPasswordVisible,
+        onHobbyChange = viewModel::setHobby,
         reversePasswordVisibility = viewModel::reversePasswordVisibility,
         isButtonEnabled = state.isButtonEnabled,
         checkSignUpValidation = viewModel::isSignUpValid,
@@ -85,11 +84,13 @@ fun SignUpRoute(
 @Composable
 fun SignUpScreen(
     navigateUp: () -> Unit,
-    email: String,
+    username: String,
     password: String,
-    onEmailChange: (String) -> Unit,
+    hobby: String,
+    onUsernameChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     isPasswordVisible: Boolean,
+    onHobbyChange: (String) -> Unit,
     reversePasswordVisibility: () -> Unit,
     isButtonEnabled: Boolean,
     checkSignUpValidation: () -> Unit,
@@ -138,12 +139,11 @@ fun SignUpScreen(
             )
 
             AuthTextField(
-                value = email,
-                onValueChange = onEmailChange,
+                value = username,
+                onValueChange = onUsernameChange,
                 textPaddingValue = 15,
-                placeholder = stringResource(R.string.signup_id_example)
+                placeholder = stringResource(R.string.signup_username_example)
             )
-
 
             Text(
                 color = LightGray,
@@ -178,6 +178,22 @@ fun SignUpScreen(
                 fontSize = 12.sp,
                 modifier = Modifier.padding(top = 5.dp)
             )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            AuthTextField(
+                value = hobby,
+                onValueChange = onHobbyChange,
+                textPaddingValue = 15,
+                placeholder = stringResource(R.string.hobby)
+            )
+
+            Text(
+                color = LightGray,
+                text = stringResource(R.string.signup_hobby_notification),
+                fontSize = 12.sp,
+                modifier = Modifier.padding(top = 5.dp)
+            )
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -196,11 +212,13 @@ fun SignUpScreenPreview() {
     ANDANDROIDTheme {
         SignUpScreen(
             navigateUp = {},
-            email = "",
+            username = "",
             password = "",
-            onEmailChange = {},
+            hobby = "",
+            onUsernameChange = {},
             onPasswordChange = {},
             isPasswordVisible = false,
+            onHobbyChange = {},
             reversePasswordVisibility = {},
             isButtonEnabled = false,
             checkSignUpValidation = {},
