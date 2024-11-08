@@ -22,7 +22,7 @@ import org.sopt.and.ui.theme.LightGray
 import org.sopt.and.ui.theme.White
 
 @Composable
-fun SignUpTextField(
+fun AuthTextField(
     value: String,
     onValueChange: (String) -> Unit,
     textPaddingValue: Int,
@@ -66,9 +66,9 @@ fun SignUpTextField(
 
 @Preview
 @Composable
-fun SignUpTextFieldPreview() {
+fun AuthTextFieldPreview() {
     ANDANDROIDTheme {
-        SignUpTextField(
+        AuthTextField(
             value = "",
             onValueChange = {},
             textPaddingValue = 10,

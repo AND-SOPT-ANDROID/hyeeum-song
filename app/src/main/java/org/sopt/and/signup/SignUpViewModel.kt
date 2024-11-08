@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.sopt.and.R
 import java.util.regex.Pattern
 import javax.inject.Inject
 
@@ -43,9 +44,9 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
                 _sideEffect.emit(SignUpSideEffect.NavigateToSignIn)
             } else {
                 val toastMessage = when {
-                    !isEmailValid() -> "이메일을 다시 확인해주세요."
-                    !isPasswordValid() -> "비밀번호는 대소문자, 숫자, 특수문자를 포함해야 합니다."
-                    else -> "유효하지 않은 입력입니다."
+                    !isEmailValid() -> R.string.check_email
+                    !isPasswordValid() -> R.string.password_condition
+                    else -> R.string.not_valid_input
                 }
                 _sideEffect.emit(SignUpSideEffect.ShowToast(toastMessage))
             }
@@ -60,17 +61,7 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
 
     fun isPasswordValid(): Boolean {
         val password = _state.value.password
-
-        if (password.length !in MIN_PASSWORD..MAX_PASSWORD) return false
-
-        val validationCount = listOf(
-            password.any { it.isUpperCase() },
-            password.any { it.isLowerCase() },
-            password.any { it.isDigit() },
-            password.any { !it.isLetterOrDigit() }
-        )
-
-        return validationCount.count { it } >= 3
+        return Pattern.matches(PASSWORD_CONDITION, password)
     }
 
 
@@ -81,7 +72,9 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
     }
 
     companion object {
-        const val MIN_PASSWORD = 8
-        const val MAX_PASSWORD = 20
+        private const val MIN_PASSWORD = 8
+        private const val MAX_PASSWORD = 20
+        private const val PASSWORD_CONDITION =
+            "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{$MIN_PASSWORD,$MAX_PASSWORD}$"
     }
 }

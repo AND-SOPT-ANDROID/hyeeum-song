@@ -32,7 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.and.R
 import org.sopt.and.component.ExpandedButton
-import org.sopt.and.component.SignUpTextField
+import org.sopt.and.component.AuthTextField
 import org.sopt.and.component.TopBar
 import org.sopt.and.sharedpreference.User
 import org.sopt.and.showToast
@@ -137,7 +137,7 @@ fun SignUpScreen(
                 modifier = Modifier.padding(top = 30.dp, bottom = 20.dp)
             )
 
-            SignUpTextField(
+            AuthTextField(
                 value = email,
                 onValueChange = onEmailChange,
                 textPaddingValue = 15,
@@ -154,7 +154,7 @@ fun SignUpScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            SignUpTextField(
+            AuthTextField(
                 value = password,
                 onValueChange = onPasswordChange,
                 textPaddingValue = 15,
