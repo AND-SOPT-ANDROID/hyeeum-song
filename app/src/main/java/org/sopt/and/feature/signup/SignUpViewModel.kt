@@ -50,7 +50,7 @@ class SignUpViewModel @Inject constructor(
     fun isSignUpValid() {
         viewModelScope.launch {
             if (isUsernameValid() && isPasswordValid() && isHobbyValid()) {
-                wavveRepository.createUser(
+                wavveRepository.signUp(
                     RequestSignUpEntity(
                         username = _state.value.username,
                         password = _state.value.password,

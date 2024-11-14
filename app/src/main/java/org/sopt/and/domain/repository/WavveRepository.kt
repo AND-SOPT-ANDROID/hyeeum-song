@@ -2,12 +2,12 @@ package org.sopt.and.domain.repository
 
 import org.sopt.and.domain.entity.request.RequestSignInEntity
 import org.sopt.and.domain.entity.request.RequestSignUpEntity
-import org.sopt.and.domain.entity.response.HobbyEntity
-import org.sopt.and.domain.entity.response.SignInEntity
-import org.sopt.and.domain.entity.response.SignUpEntity
+import org.sopt.and.domain.entity.response.ResponseHobbyEntity
+import org.sopt.and.domain.entity.response.ResponseSignInEntity
+import org.sopt.and.domain.entity.response.ResponseSignUpEntity
 
 interface WavveRepository {
-    suspend fun createUser(body: RequestSignUpEntity): Result<SignUpEntity>
-    suspend fun getUserId(body:RequestSignInEntity): Result<SignInEntity>
-    suspend fun getHobby(): Result<HobbyEntity>
+    suspend fun signUp(body: RequestSignUpEntity): Result<ResponseSignUpEntity>
+    suspend fun signIn(body:RequestSignInEntity): Result<ResponseSignInEntity>
+    suspend fun getHobby(): Result<ResponseHobbyEntity>
 }

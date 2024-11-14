@@ -1,5 +1,5 @@
 package org.sopt.and.domain.entity.response
 
-data class SignInEntity(
+data class ResponseSignInEntity(
     val token: String
 )

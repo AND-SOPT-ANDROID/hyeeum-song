@@ -1,5 +1,5 @@
 package org.sopt.and.domain.entity.response
 
-data class HobbyEntity(
+data class ResponseHobbyEntity(
     val hobby: String
 )

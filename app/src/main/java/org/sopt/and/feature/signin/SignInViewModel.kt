@@ -49,7 +49,7 @@ class SignInViewModel @Inject constructor(
     fun isSignInValid() {
         viewModelScope.launch {
             var toastMessage: String = ""
-            wavveRepository.getUserId(
+            wavveRepository.signIn(
                 RequestSignInEntity(
                     username = _state.value.username,
                     password = _state.value.password
