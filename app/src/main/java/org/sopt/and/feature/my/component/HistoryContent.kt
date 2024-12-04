@@ -1,4 +1,4 @@
-package org.sopt.and.feature.component
+package org.sopt.and.feature.my.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
