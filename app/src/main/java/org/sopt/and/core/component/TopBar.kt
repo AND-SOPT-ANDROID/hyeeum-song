@@ -1,4 +1,4 @@
-package org.sopt.and.feature.component
+package org.sopt.and.core.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

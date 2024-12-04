@@ -1,4 +1,4 @@
-package org.sopt.and.feature.main
+package org.sopt.and.core.navigation
 
 interface MainRoute
 

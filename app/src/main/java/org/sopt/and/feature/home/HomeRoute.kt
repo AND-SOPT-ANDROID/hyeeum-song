@@ -34,7 +34,7 @@ import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.and.R
 import org.sopt.and.feature.component.HomeContent
-import org.sopt.and.feature.component.TopBar
+import org.sopt.and.core.component.TopBar
 import org.sopt.and.feature.home.model.ContentModel
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black

@@ -31,10 +31,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.and.R
-import org.sopt.and.feature.component.ExpandedButton
-import org.sopt.and.feature.component.AuthTextField
-import org.sopt.and.feature.component.TopBar
-import org.sopt.and.showToast
+import org.sopt.and.core.component.ExpandedButton
+import org.sopt.and.core.component.AuthTextField
+import org.sopt.and.core.component.TopBar
+import org.sopt.and.core.extension.showToast
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.LightGray

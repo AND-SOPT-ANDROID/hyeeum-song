@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
-import org.sopt.and.feature.main.MainTabRoute
+import org.sopt.and.core.navigation.MainTabRoute
 
 fun NavController.navigateMy(
     navOptions: NavOptions

@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import org.sopt.and.core.navigation.MainTabRoute
 import org.sopt.and.feature.home.Home
 import org.sopt.and.feature.home.navigateHome
 import org.sopt.and.feature.my.navigateMy

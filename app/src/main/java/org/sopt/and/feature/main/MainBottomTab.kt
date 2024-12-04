@@ -6,6 +6,8 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import org.sopt.and.core.navigation.MainRoute
+import org.sopt.and.core.navigation.MainTabRoute
 
 enum class MainBottomTab(
     val icon: ImageVector,
