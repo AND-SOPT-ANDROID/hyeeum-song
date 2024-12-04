@@ -60,7 +60,7 @@ class SignUpViewModel @Inject constructor(
                     _sideEffect.emit(SignUpSideEffect.NavigateToSignIn)
                 }
                     .onFailure {
-                        //TODO
+                        _sideEffect.emit(SignUpSideEffect.ShowToast(R.string.common_failure))
                     }
             } else {
                 val toastMessage = when {
@@ -75,7 +75,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun isUsernameValid(): Boolean {
-        return _state.value.username.length in MIN_SIGNUP_LENGTH .. MAX_SIGNUP_LENGTH
+        return _state.value.username.length in MIN_SIGNUP_LENGTH..MAX_SIGNUP_LENGTH
     }
 
     fun isPasswordValid(): Boolean {
@@ -84,7 +84,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun isHobbyValid(): Boolean {
-        return _state.value.hobby.length in MIN_SIGNUP_LENGTH .. MAX_SIGNUP_LENGTH
+        return _state.value.hobby.length in MIN_SIGNUP_LENGTH..MAX_SIGNUP_LENGTH
     }
 
     fun reversePasswordVisibility() {
@@ -97,5 +97,6 @@ class SignUpViewModel @Inject constructor(
         private const val MIN_SIGNUP_LENGTH = 1
         private const val MAX_SIGNUP_LENGTH = 8
         private const val PASSWORD_CONDITION =
-            "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{$MIN_SIGNUP_LENGTH,$MAX_SIGNUP_LENGTH}$"    }
+            "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{$MIN_SIGNUP_LENGTH,$MAX_SIGNUP_LENGTH}$"
+    }
 }
