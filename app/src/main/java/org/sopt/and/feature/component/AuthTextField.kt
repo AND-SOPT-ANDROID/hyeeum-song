@@ -1,4 +1,4 @@
-package org.sopt.and.component
+package org.sopt.and.feature.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
