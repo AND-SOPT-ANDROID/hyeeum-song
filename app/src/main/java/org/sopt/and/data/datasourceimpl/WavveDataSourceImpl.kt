@@ -11,7 +11,7 @@ import org.sopt.and.data.service.WavveService
 import javax.inject.Inject
 
 class WavveDataSourceImpl @Inject constructor(
-    val wavveService: WavveService
+    private val wavveService: WavveService
 ) : WavveDataSource {
     override suspend fun postSignUp(requestSignUpDto: RequestSignUpDto): BaseResponse<ResponseSignUpDto> =
         wavveService.postSignUp(requestSignUpDto)
