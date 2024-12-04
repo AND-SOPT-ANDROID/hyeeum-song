@@ -84,9 +84,5 @@ dependencies {
 
     // Network
     implementation(platform(libs.okhttp.bom))
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.logging.interceptor)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.kotlin.serialization.converter)
-    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.bundles.network)
 }

@@ -54,3 +54,11 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+[bundles]
+network = [
+    "retrofit",
+    "retrofit-kotlin-serialization-converter",
+    "okhttp",
+    "okhttp-logging-interceptor"
+]
