@@ -55,10 +55,10 @@ object NetworkModule {
         loggingInterceptor: HttpLoggingInterceptor,
         authInterceptor: AuthInterceptor
     ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(authInterceptor)
-            .build()
+        val builder = OkHttpClient.Builder()
+        if (BuildConfig.DEBUG) builder.addInterceptor(loggingInterceptor)
+        builder.addInterceptor(authInterceptor)
+        return builder.build()
     }
 
     @Singleton
