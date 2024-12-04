@@ -43,5 +43,6 @@
     <string name="hide">hide</string>
     <string name="show">show</string>
     <string name="wavve">Wavve</string>
+    <string name="common_failure">데이터를 불러오지 못했습니다.</string>
 
 </resources>
