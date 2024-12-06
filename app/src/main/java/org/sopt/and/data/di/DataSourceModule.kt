@@ -15,10 +15,10 @@ import javax.inject.Singleton
 internal abstract class DataSourceModule {
     @Binds
     @Singleton
-    abstract fun bindsDataSource(authDataSourceImpl: AuthDataSourceImpl): AuthDataSource
+    abstract fun bindsAuthDataSource(authDataSourceImpl: AuthDataSourceImpl): AuthDataSource
 
     @Binds
     @Singleton
-    abstract fun myDataSource(MyDataSourceImpl: MyDataSourceImpl): MyDataSource
+    abstract fun bindsMyDataSource(MyDataSourceImpl: MyDataSourceImpl): MyDataSource
 }
 
