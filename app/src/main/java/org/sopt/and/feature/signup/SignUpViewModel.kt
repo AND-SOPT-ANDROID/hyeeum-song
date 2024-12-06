@@ -12,13 +12,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.and.R
 import org.sopt.and.domain.entity.request.RequestSignUpEntity
-import org.sopt.and.domain.repository.WavveRepository
+import org.sopt.and.domain.usecase.SignUpUseCase
 import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val wavveRepository: WavveRepository
+    private val signUpUseCase: SignUpUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SignUpState())
@@ -50,7 +50,7 @@ class SignUpViewModel @Inject constructor(
     fun isSignUpValid() {
         viewModelScope.launch {
             if (isUsernameValid() && isPasswordValid() && isHobbyValid()) {
-                wavveRepository.signUp(
+                signUpUseCase.invoke(
                     RequestSignUpEntity(
                         username = _state.value.username,
                         password = _state.value.password,
