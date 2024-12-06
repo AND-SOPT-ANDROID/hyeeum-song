@@ -11,12 +11,12 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.and.R
-import org.sopt.and.domain.repository.WavveRepository
+import org.sopt.and.domain.usecase.MyUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class MyViewModel @Inject constructor(
-    private val wavveRepository: WavveRepository
+    private val getHobbyUseCase : MyUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(MyState())
     val state: StateFlow<MyState>
@@ -28,7 +28,7 @@ class MyViewModel @Inject constructor(
 
     fun getUserHobby() {
         viewModelScope.launch {
-            wavveRepository.getHobby().onSuccess { hobbyEntity ->
+            getHobbyUseCase.invoke().onSuccess { hobbyEntity ->
                 _state.value = _state.value.copy(
                     hobby = hobbyEntity.hobby
                 )

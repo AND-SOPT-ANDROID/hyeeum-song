@@ -1,11 +1,10 @@
-package org.sopt.and.component
+package org.sopt.and.core.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,7 +19,7 @@ import org.sopt.and.ui.theme.Gray
 import org.sopt.and.ui.theme.White
 
 @Composable
-fun RoundedButton(
+fun ExpandedButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -33,7 +32,6 @@ fun RoundedButton(
             .clickable { if (enabled) onClick() }
             .background(
                 color = if (enabled) Blue else Gray,
-                shape = RoundedCornerShape(50.dp)
             )
     ) {
         Text(
@@ -47,9 +45,9 @@ fun RoundedButton(
 
 @Preview
 @Composable
-fun RoundedButtonPreview() {
+fun ExpandedButtonPreview() {
     ANDANDROIDTheme {
-        RoundedButton(
+        ExpandedButton(
             text = "",
             onClick = {}
         )

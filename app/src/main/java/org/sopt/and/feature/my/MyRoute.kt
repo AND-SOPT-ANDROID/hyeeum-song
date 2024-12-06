@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.sopt.and.R
-import org.sopt.and.component.EventContent
-import org.sopt.and.component.HistoryContent
+import org.sopt.and.feature.my.component.EventContent
+import org.sopt.and.feature.my.component.HistoryContent
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.Blue

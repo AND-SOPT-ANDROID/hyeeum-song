@@ -4,8 +4,12 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.sopt.and.data.repositoryimpl.WavveRepositoryImpl
-import org.sopt.and.domain.repository.WavveRepository
+import org.sopt.and.data.repositoryimpl.MyRepositoryImpl
+import org.sopt.and.data.repositoryimpl.SignInRepositoryImpl
+import org.sopt.and.data.repositoryimpl.SignUpRepositoryImpl
+import org.sopt.and.domain.repository.MyRepository
+import org.sopt.and.domain.repository.SignInRepository
+import org.sopt.and.domain.repository.SignUpRepository
 import javax.inject.Singleton
 
 @Module
@@ -13,7 +17,19 @@ import javax.inject.Singleton
 internal abstract class RepositoryModule {
     @Binds
     @Singleton
-    abstract fun bindsRepository(
-        myRepositoryImpl: WavveRepositoryImpl
-    ): WavveRepository
+    abstract fun bindsSignInRepository(
+        signInRepositoryImpl: SignInRepositoryImpl
+    ): SignInRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsSignUpRepository(
+        signUpRepositoryImpl: SignUpRepositoryImpl
+    ): SignUpRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsMyRepository(
+        myRepositoryImpl: MyRepositoryImpl
+    ): MyRepository
 }

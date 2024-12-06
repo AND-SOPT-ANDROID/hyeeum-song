@@ -4,8 +4,10 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.sopt.and.data.datasource.WavveDataSource
-import org.sopt.and.data.datasourceimpl.WavveDataSourceImpl
+import org.sopt.and.data.datasource.AuthDataSource
+import org.sopt.and.data.datasource.MyDataSource
+import org.sopt.and.data.datasourceimpl.AuthDataSourceImpl
+import org.sopt.and.data.datasourceimpl.MyDataSourceImpl
 import javax.inject.Singleton
 
 @Module
@@ -13,6 +15,10 @@ import javax.inject.Singleton
 internal abstract class DataSourceModule {
     @Binds
     @Singleton
-    abstract fun bindsDataSource(myDataSourceImpl: WavveDataSourceImpl): WavveDataSource
+    abstract fun bindsAuthDataSource(authDataSourceImpl: AuthDataSourceImpl): AuthDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsMyDataSource(MyDataSourceImpl: MyDataSourceImpl): MyDataSource
 }
 

@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.and.domain.entity.request.RequestSignInEntity
-import org.sopt.and.domain.repository.WavveRepository
+import org.sopt.and.domain.usecase.SignInUseCase
 import org.sopt.and.sharedpreference.User
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val user:User,
-    private val wavveRepository: WavveRepository
+    private val user: User,
+    private val signInUseCase: SignInUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(SignInState())
     val state: StateFlow<SignInState>
@@ -49,7 +49,7 @@ class SignInViewModel @Inject constructor(
     fun isSignInValid() {
         viewModelScope.launch {
             var toastMessage: String = ""
-            wavveRepository.signIn(
+            signInUseCase.invoke(
                 RequestSignInEntity(
                     username = _state.value.username,
                     password = _state.value.password

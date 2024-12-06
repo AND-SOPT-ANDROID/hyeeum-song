@@ -4,7 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.sopt.and.data.service.WavveService
+import org.sopt.and.data.service.AuthService
+import org.sopt.and.data.service.MyService
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -13,6 +14,11 @@ import javax.inject.Singleton
 object ServiceModule {
     @Provides
     @Singleton
-    fun providerService(retrofit: Retrofit): WavveService =
-        retrofit.create(WavveService::class.java)
+    fun providerAuthService(retrofit: Retrofit): AuthService =
+        retrofit.create(AuthService::class.java)
+
+    @Provides
+    @Singleton
+    fun providerMyService(retrofit: Retrofit): MyService =
+        retrofit.create(MyService::class.java)
 }
