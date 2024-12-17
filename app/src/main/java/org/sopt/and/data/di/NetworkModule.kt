@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.sopt.and.BuildConfig
 import org.sopt.and.sharedpreference.User
 import retrofit2.Retrofit
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -36,12 +37,11 @@ object NetworkModule {
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor { message ->
-            Log.d("Retrofit2", "CONNECTION INFO -> $message")
+            Timber.tag("Retrofit2").d("CONNECTION INFO -> $message")
         }.apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
     }
-
 
     @Singleton
     @Provides
