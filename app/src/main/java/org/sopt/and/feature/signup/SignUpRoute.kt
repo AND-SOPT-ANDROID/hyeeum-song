@@ -35,6 +35,8 @@ import org.sopt.and.core.component.ExpandedButton
 import org.sopt.and.core.component.AuthTextField
 import org.sopt.and.core.component.TopBar
 import org.sopt.and.core.extension.showToast
+import org.sopt.and.feature.signup.SignUpContract.SignUpEvent
+import org.sopt.and.feature.signup.SignUpContract.SignUpSideEffect
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.LightGray

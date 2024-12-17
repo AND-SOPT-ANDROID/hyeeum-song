@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import org.sopt.and.R
 import org.sopt.and.domain.entity.request.RequestSignUpEntity
 import org.sopt.and.domain.usecase.SignUpUseCase
+import org.sopt.and.feature.signup.SignUpContract.SignUpEvent
+import org.sopt.and.feature.signup.SignUpContract.SignUpSideEffect
 import java.util.regex.Pattern
 import javax.inject.Inject
 
@@ -21,17 +23,17 @@ class SignUpViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(SignUpState())
-    val state: StateFlow<SignUpState>
+    private val _state = MutableStateFlow(SignUpContract.SignUpState())
+    val state: StateFlow<SignUpContract.SignUpState>
         get() = _state.asStateFlow()
-    private val currentState: SignUpState
+    private val currentState: SignUpContract.SignUpState
         get() = state.value
 
     private val _sideEffect: MutableSharedFlow<SignUpSideEffect> = MutableSharedFlow()
     val sideEffect: SharedFlow<SignUpSideEffect>
         get() = _sideEffect.asSharedFlow()
 
-    private fun setState(reduce: SignUpState.() -> SignUpState) {
+    private fun setState(reduce: SignUpContract.SignUpState.() -> SignUpContract.SignUpState) {
         _state.value = currentState.reduce()
     }
 
