@@ -23,21 +23,39 @@ class SignInViewModel @Inject constructor(
     private val _state = MutableStateFlow(SignInState())
     val state: StateFlow<SignInState>
         get() = _state.asStateFlow()
+    private val currentState: SignInState
+        get() = state.value
 
     private val _sideEffect: MutableSharedFlow<SignInSideEffect> = MutableSharedFlow()
     val sideEffect: SharedFlow<SignInSideEffect>
         get() = _sideEffect.asSharedFlow()
 
-    fun setUsername(username: String) {
-        _state.value = _state.value.copy(
-            username = username
-        )
+    private fun setState(reduce: SignInState.() -> SignInState) {
+        _state.value = currentState.reduce()
     }
 
-    fun setPassword(password: String) {
-        _state.value = _state.value.copy(
-            password = password
-        )
+    fun setEvent(event: SignInEvent) {
+        dispatchEvent(event)
+    }
+
+    private fun dispatchEvent(event: SignInEvent) = viewModelScope.launch {
+        handleEvent(event)
+    }
+
+    private fun handleEvent(event: SignInEvent) {
+        when (event) {
+            is SignInEvent.SetUsername -> {
+                setState {
+                    copy(username = event.username)
+                }
+            }
+
+            is SignInEvent.SetPassword -> {
+                setState {
+                    copy(password = event.password)
+                }
+            }
+        }
     }
 
     fun reversePasswordVisibility() {

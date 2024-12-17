@@ -36,8 +36,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.and.R
-import org.sopt.and.core.component.RoundedButton
 import org.sopt.and.core.component.AuthTextField
+import org.sopt.and.core.component.RoundedButton
 import org.sopt.and.core.component.TopBar
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
@@ -78,8 +78,12 @@ fun SignInRoute(
         navigateToSignUp = navigateToSignUp,
         username = state.username,
         password = state.password,
-        onUsernameChange = viewModel::setUsername,
-        onPasswordChange = viewModel::setPassword,
+        onUsernameChange = { username ->
+            viewModel.setEvent(SignInEvent.SetUsername(username = username))
+        },
+        onPasswordChange = { password ->
+            viewModel.setEvent(SignInEvent.SetPassword(password = password))
+        },
         isPasswordVisible = state.isPasswordVisible,
         reversePasswordVisibility = viewModel::reversePasswordVisibility,
         isButtonEnabled = state.isButtonEnabled,
