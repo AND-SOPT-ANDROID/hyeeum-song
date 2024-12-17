@@ -70,10 +70,16 @@ fun SignUpRoute(
         username = state.username,
         password = state.password,
         hobby = state.hobby,
-        onUsernameChange = viewModel::setUsername,
-        onPasswordChange = viewModel::setPassword,
+        onUsernameChange = { username ->
+            viewModel.setEvent(SignUpEvent.SetUsername(username = username))
+        },
+        onPasswordChange = { password ->
+            viewModel.setEvent(SignUpEvent.SetPassword(password = password))
+        },
         isPasswordVisible = state.isPasswordVisible,
-        onHobbyChange = viewModel::setHobby,
+        onHobbyChange = { hobby ->
+            viewModel.setEvent(SignUpEvent.SetHobby(hobby = hobby))
+        },
         reversePasswordVisibility = viewModel::reversePasswordVisibility,
         isButtonEnabled = state.isButtonEnabled,
         checkSignUpValidation = viewModel::isSignUpValid,
