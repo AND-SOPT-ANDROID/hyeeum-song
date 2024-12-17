@@ -39,6 +39,8 @@ import org.sopt.and.R
 import org.sopt.and.core.component.AuthTextField
 import org.sopt.and.core.component.RoundedButton
 import org.sopt.and.core.component.TopBar
+import org.sopt.and.feature.signin.SignInContract.SignInEvent
+import org.sopt.and.feature.signin.SignInContract.SignInSideEffect
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.LightGray
