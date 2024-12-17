@@ -24,27 +24,44 @@ class SignUpViewModel @Inject constructor(
     private val _state = MutableStateFlow(SignUpState())
     val state: StateFlow<SignUpState>
         get() = _state.asStateFlow()
+    private val currentState: SignUpState
+        get() = state.value
 
     private val _sideEffect: MutableSharedFlow<SignUpSideEffect> = MutableSharedFlow()
     val sideEffect: SharedFlow<SignUpSideEffect>
         get() = _sideEffect.asSharedFlow()
 
-    fun setUsername(username: String) {
-        _state.value = _state.value.copy(
-            username = username
-        )
+    private fun setState(reduce: SignUpState.() -> SignUpState) {
+        _state.value = currentState.reduce()
     }
 
-    fun setPassword(password: String) {
-        _state.value = _state.value.copy(
-            password = password
-        )
+    fun setEvent(event: SignUpEvent) {
+        dispatchEvent(event)
     }
 
-    fun setHobby(hobby: String) {
-        _state.value = _state.value.copy(
-            hobby = hobby
-        )
+    private fun dispatchEvent(event: SignUpEvent) = viewModelScope.launch {
+        handleEvent(event)
+    }
+
+    private fun handleEvent(event: SignUpEvent) {
+        when (event) {
+            is SignUpEvent.SetUsername -> {
+                setState {
+                    copy(username = event.username)
+                }
+            }
+
+            is SignUpEvent.SetPassword -> {
+                setState {
+                    copy(password = event.password)
+                }
+            }
+            is SignUpEvent.SetHobby -> {
+                setState {
+                    copy(hobby = event.hobby)
+                }
+            }
+        }
     }
 
     fun isSignUpValid() {
