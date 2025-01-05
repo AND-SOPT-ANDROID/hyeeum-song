@@ -12,45 +12,64 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.and.R
 import org.sopt.and.domain.entity.request.RequestSignUpEntity
-import org.sopt.and.domain.repository.WavveRepository
+import org.sopt.and.domain.usecase.SignUpUseCase
+import org.sopt.and.feature.signup.SignUpContract.SignUpEvent
+import org.sopt.and.feature.signup.SignUpContract.SignUpSideEffect
 import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val wavveRepository: WavveRepository
+    private val signUpUseCase: SignUpUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(SignUpState())
-    val state: StateFlow<SignUpState>
+    private val _state = MutableStateFlow(SignUpContract.SignUpState())
+    val state: StateFlow<SignUpContract.SignUpState>
         get() = _state.asStateFlow()
+    private val currentState: SignUpContract.SignUpState
+        get() = state.value
 
     private val _sideEffect: MutableSharedFlow<SignUpSideEffect> = MutableSharedFlow()
     val sideEffect: SharedFlow<SignUpSideEffect>
         get() = _sideEffect.asSharedFlow()
 
-    fun setUsername(username: String) {
-        _state.value = _state.value.copy(
-            username = username
-        )
+    private fun setState(reduce: SignUpContract.SignUpState.() -> SignUpContract.SignUpState) {
+        _state.value = currentState.reduce()
     }
 
-    fun setPassword(password: String) {
-        _state.value = _state.value.copy(
-            password = password
-        )
+    fun setEvent(event: SignUpEvent) {
+        dispatchEvent(event)
     }
 
-    fun setHobby(hobby: String) {
-        _state.value = _state.value.copy(
-            hobby = hobby
-        )
+    private fun dispatchEvent(event: SignUpEvent) = viewModelScope.launch {
+        handleEvent(event)
+    }
+
+    private fun handleEvent(event: SignUpEvent) {
+        when (event) {
+            is SignUpEvent.SetUsername -> {
+                setState {
+                    copy(username = event.username)
+                }
+            }
+
+            is SignUpEvent.SetPassword -> {
+                setState {
+                    copy(password = event.password)
+                }
+            }
+            is SignUpEvent.SetHobby -> {
+                setState {
+                    copy(hobby = event.hobby)
+                }
+            }
+        }
     }
 
     fun isSignUpValid() {
         viewModelScope.launch {
             if (isUsernameValid() && isPasswordValid() && isHobbyValid()) {
-                wavveRepository.signUp(
+                signUpUseCase.invoke(
                     RequestSignUpEntity(
                         username = _state.value.username,
                         password = _state.value.password,

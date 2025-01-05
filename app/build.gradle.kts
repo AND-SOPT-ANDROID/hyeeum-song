@@ -85,4 +85,7 @@ dependencies {
     // Network
     implementation(platform(libs.okhttp.bom))
     implementation(libs.bundles.network)
+
+    //timer
+    implementation(libs.timber)
 }

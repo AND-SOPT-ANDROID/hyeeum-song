@@ -11,33 +11,54 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.and.domain.entity.request.RequestSignInEntity
-import org.sopt.and.domain.repository.WavveRepository
+import org.sopt.and.domain.usecase.SignInUseCase
+import org.sopt.and.feature.signin.SignInContract.SignInEvent
+import org.sopt.and.feature.signin.SignInContract.SignInSideEffect
+import org.sopt.and.feature.signin.SignInContract.SignInState
 import org.sopt.and.sharedpreference.User
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val user:User,
-    private val wavveRepository: WavveRepository
+    private val user: User,
+    private val signInUseCase: SignInUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(SignInState())
     val state: StateFlow<SignInState>
         get() = _state.asStateFlow()
+    private val currentState: SignInState
+        get() = state.value
 
     private val _sideEffect: MutableSharedFlow<SignInSideEffect> = MutableSharedFlow()
     val sideEffect: SharedFlow<SignInSideEffect>
         get() = _sideEffect.asSharedFlow()
 
-    fun setUsername(username: String) {
-        _state.value = _state.value.copy(
-            username = username
-        )
+    private fun setState(reduce: SignInState.() -> SignInState) {
+        _state.value = currentState.reduce()
     }
 
-    fun setPassword(password: String) {
-        _state.value = _state.value.copy(
-            password = password
-        )
+    fun setEvent(event: SignInEvent) {
+        dispatchEvent(event)
+    }
+
+    private fun dispatchEvent(event: SignInEvent) = viewModelScope.launch {
+        handleEvent(event)
+    }
+
+    private fun handleEvent(event: SignInEvent) {
+        when (event) {
+            is SignInEvent.SetUsername -> {
+                setState {
+                    copy(username = event.username)
+                }
+            }
+
+            is SignInEvent.SetPassword -> {
+                setState {
+                    copy(password = event.password)
+                }
+            }
+        }
     }
 
     fun reversePasswordVisibility() {
@@ -49,7 +70,7 @@ class SignInViewModel @Inject constructor(
     fun isSignInValid() {
         viewModelScope.launch {
             var toastMessage: String = ""
-            wavveRepository.signIn(
+            signInUseCase.invoke(
                 RequestSignInEntity(
                     username = _state.value.username,
                     password = _state.value.password

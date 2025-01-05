@@ -1,4 +1,4 @@
-package org.sopt.and
+package org.sopt.and.core.extension
 
 import android.content.Context
 import android.widget.Toast

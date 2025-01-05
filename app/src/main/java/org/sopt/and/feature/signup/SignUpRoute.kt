@@ -31,10 +31,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.and.R
-import org.sopt.and.component.ExpandedButton
-import org.sopt.and.component.AuthTextField
-import org.sopt.and.component.TopBar
-import org.sopt.and.showToast
+import org.sopt.and.core.component.ExpandedButton
+import org.sopt.and.core.component.AuthTextField
+import org.sopt.and.core.component.TopBar
+import org.sopt.and.core.extension.showToast
+import org.sopt.and.feature.signup.SignUpContract.SignUpEvent
+import org.sopt.and.feature.signup.SignUpContract.SignUpSideEffect
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.LightGray
@@ -70,10 +72,16 @@ fun SignUpRoute(
         username = state.username,
         password = state.password,
         hobby = state.hobby,
-        onUsernameChange = viewModel::setUsername,
-        onPasswordChange = viewModel::setPassword,
+        onUsernameChange = { username ->
+            viewModel.setEvent(SignUpEvent.SetUsername(username = username))
+        },
+        onPasswordChange = { password ->
+            viewModel.setEvent(SignUpEvent.SetPassword(password = password))
+        },
         isPasswordVisible = state.isPasswordVisible,
-        onHobbyChange = viewModel::setHobby,
+        onHobbyChange = { hobby ->
+            viewModel.setEvent(SignUpEvent.SetHobby(hobby = hobby))
+        },
         reversePasswordVisibility = viewModel::reversePasswordVisibility,
         isButtonEnabled = state.isButtonEnabled,
         checkSignUpValidation = viewModel::isSignUpValid,

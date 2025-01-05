@@ -25,7 +25,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -37,9 +36,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.and.R
-import org.sopt.and.component.RoundedButton
-import org.sopt.and.component.AuthTextField
-import org.sopt.and.component.TopBar
+import org.sopt.and.core.component.AuthTextField
+import org.sopt.and.core.component.RoundedButton
+import org.sopt.and.core.component.TopBar
+import org.sopt.and.feature.signin.SignInContract.SignInEvent
+import org.sopt.and.feature.signin.SignInContract.SignInSideEffect
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 import org.sopt.and.ui.theme.Black
 import org.sopt.and.ui.theme.LightGray
@@ -79,8 +80,12 @@ fun SignInRoute(
         navigateToSignUp = navigateToSignUp,
         username = state.username,
         password = state.password,
-        onUsernameChange = viewModel::setUsername,
-        onPasswordChange = viewModel::setPassword,
+        onUsernameChange = { username ->
+            viewModel.setEvent(SignInEvent.SetUsername(username = username))
+        },
+        onPasswordChange = { password ->
+            viewModel.setEvent(SignInEvent.SetPassword(password = password))
+        },
         isPasswordVisible = state.isPasswordVisible,
         reversePasswordVisibility = viewModel::reversePasswordVisibility,
         isButtonEnabled = state.isButtonEnabled,

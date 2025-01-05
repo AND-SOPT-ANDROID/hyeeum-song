@@ -6,6 +6,7 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import org.sopt.and.core.navigation.MainTabRoute
 
 enum class MainBottomTab(
     val icon: ImageVector,
@@ -35,7 +36,7 @@ enum class MainBottomTab(
         }
 
         @Composable
-        fun contains(predicate: @Composable (MainRoute) -> Boolean): Boolean {
+        fun contains(predicate: @Composable (MainTabRoute) -> Boolean): Boolean {
             return entries.map { it.route }.any { predicate(it) }
         }
     }
