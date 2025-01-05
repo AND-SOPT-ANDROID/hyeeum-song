@@ -21,9 +21,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.traceEventEnd
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
@@ -31,8 +31,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import org.sopt.and.R
+import org.sopt.and.core.extension.showToast
+import org.sopt.and.core.util.LoadState
 import org.sopt.and.feature.my.component.EventContent
 import org.sopt.and.feature.my.component.HistoryContent
 import org.sopt.and.ui.theme.ANDANDROIDTheme
@@ -48,17 +52,42 @@ fun MyRoute(
     modifier: Modifier = Modifier,
     viewModel: MyViewModel = hiltViewModel()
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(true) {
-        viewModel.getUserHobby()
+        // usecase 사용했을 때,
+        viewModel.fetchUserHobby()
+
+        // usecase 사용안했을 때,
+        viewModel.getUserHobbyRepository()
     }
 
-    MyScreen(
-        paddingValues = paddingValues,
-        hobby = state.hobby,
-        modifier = modifier
-    )
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { mySideEffect ->
+                when (mySideEffect) {
+                    is MyContract.MySideEffect.ShowToast -> context.showToast(message = mySideEffect.toastMessage)
+                }
+            }
+    }
+
+    when (state.uiState) {
+        LoadState.Idle -> {}
+
+        LoadState.Loading -> {}
+
+        LoadState.Success -> {
+            MyScreen(
+                paddingValues = paddingValues,
+                hobby = state.profile.hobby,
+                modifier = modifier
+            )
+        }
+
+        LoadState.Failure -> {}
+    }
 }
 
 @Composable

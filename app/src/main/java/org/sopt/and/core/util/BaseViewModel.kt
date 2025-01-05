@@ -2,6 +2,7 @@ package org.sopt.and.core.util
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,42 +10,43 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<State : UiState, SideEffect : UiSideEffect, Event : UiEvent>() :
+abstract class BaseViewModel<State : UiState, SideEffect : UiSideEffect, Intent : UiEvent>() :
     ViewModel() {
     private val initialState: State by lazy { createInitialState() }
     abstract fun createInitialState(): State
 
-    private val _uiState = MutableStateFlow<State>(initialState)
+    private val _state = MutableStateFlow<State>(initialState)
     val uiState: StateFlow<State>
-        get() = _uiState.asStateFlow()
+        get() = _state.asStateFlow()
     val currentState: State
         get() = uiState.value
 
-    private val _event: MutableSharedFlow<Event> = MutableSharedFlow()
-    val event: SharedFlow<Event>
+    private val _event: MutableSharedFlow<Intent> = MutableSharedFlow()
+    val event: SharedFlow<Intent>
         get() = _event.asSharedFlow()
 
-    private val _sideEffect: MutableSharedFlow<SideEffect> = MutableSharedFlow()
+    private val _sideEffect: Channel<SideEffect> = Channel()
     val sideEffect: Flow<SideEffect>
-        get() = _sideEffect.asSharedFlow()
+        get() = _sideEffect.receiveAsFlow()
 
     fun setState(reduce: State.() -> State) {
-        _uiState.value = currentState.reduce()
+        _state.value = currentState.reduce()
     }
 
-    open fun setEvent(event: Event) {
-        dispatchEvent(event)
+    open fun setIntent(intent: Intent) {
+        dispatchIntent(intent)
     }
 
-    private fun dispatchEvent(event: Event) = viewModelScope.launch {
-        handleEvent(event)
+    private fun dispatchIntent(intent: Intent) = viewModelScope.launch {
+        handleEvent(intent)
     }
 
-    protected abstract suspend fun handleEvent(event: Event)
+    protected abstract suspend fun handleEvent(intent: Intent)
 
-    fun setSideEffect(sideEffect: SideEffect) {
-        viewModelScope.launch { _sideEffect.emit(sideEffect) }
+    fun setSideEffect(sideEffect: () -> SideEffect) {
+        viewModelScope.launch { _sideEffect.send(sideEffect()) }
     }
 }
